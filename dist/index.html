@@ -5,7 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
-    <script src="bundle.js"></script>
+    <script src="bundle.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <form>
+      <label for="cityNameInput">Enter City Name:</label>
+      <input type="text" id="cityNameInput" placeholder="enter city name..." />
+      <button type="submit">Get forecast</button>
+    </form>
+  </body>
 </html>

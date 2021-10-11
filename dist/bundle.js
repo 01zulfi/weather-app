@@ -1,1 +1,1 @@
-console.log({first:"James"}),console.log("Hello linting, undefined");
+document.querySelector("form").addEventListener("submit",(e=>{e.preventDefault(),async function(e){try{const t=await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${e}&APPID=449b05371154016e4225fe1f885a634e`),a=await t.json();console.log(a)}catch(e){console.log(e)}}(document.getElementById("cityNameInput").value)}));
