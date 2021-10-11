@@ -1,0 +1,1 @@
+console.log({first:"James"}),console.log("Hello linting, undefined");
