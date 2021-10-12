@@ -1,15 +1,15 @@
 const pubsub = {
   events: {},
   publish: (eventName, data) => {
-    if (this.events[eventName]) {
-      this.events[eventName].forEach((callback) => callback(data));
+    if (pubsub.events[eventName]) {
+      pubsub.events[eventName].forEach((callback) => callback(data));
     }
   },
   subscribe: (eventName, callback) => {
-    if (!Array.isArray(this.events[eventName])) {
-      this.events[eventName] = [];
+    if (!Array.isArray(pubsub.events[eventName])) {
+      pubsub.events[eventName] = [];
     }
-    this.events[eventName].push(callback);
+    pubsub.events[eventName].push(callback);
   },
 };
 
