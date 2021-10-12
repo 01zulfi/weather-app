@@ -5,6 +5,8 @@ const getAPILink = (cityName, units) => {
   return APILink;
 };
 
+const extractRequiredData = (metric, imperial) => ({ ...metric, ...imperial });
+
 const getWeatherData = async (cityName) => {
   const [metricUnitsPromise, imperialUnitsPromise] = await Promise.all([
     fetch(getAPILink(cityName, "metric")),
@@ -13,6 +15,7 @@ const getWeatherData = async (cityName) => {
   const dataInMetricUnits = await metricUnitsPromise.json();
   const dataInImperialUnits = await imperialUnitsPromise.json();
   console.log(dataInMetricUnits, dataInImperialUnits);
+  extractRequiredData(dataInMetricUnits, dataInImperialUnits);
 };
 
 const weatherDataModule = {
