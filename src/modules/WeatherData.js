@@ -8,34 +8,39 @@ const getAPILink = (cityName, units) => {
 
 const extractRequiredData = (metric, imperial) => {
   const requiredData = {
-    weather: {
+    weatherMain: {
       main: metric.weather[0].main,
       iconId: metric.weather[0].icon,
       desc: metric.weather[0].description.toLowerCase(),
-    },
-    temp: {
-      metricUnits: {
-        feelsLike: metric.main.feels_like,
-        temp: metric.main.temp,
-        tempMax: metric.main.temp_max,
-        tempMin: metric.main.temp_min,
+      temp: {
+        metricUnits: metric.main.temp,
+        imperialUnits: imperial.main.temp,
       },
-      imperialUnits: {
-        feelsLike: imperial.main.feels_like,
-        temp: imperial.main.temp,
-        tempMax: imperial.main.temp_max,
-        tempMin: imperial.main.temp_min,
+      city: metric.name,
+      country: metric.sys.country,
+    },
+    weatherDetails: {
+      tempDetails: {
+        metricUnits: {
+          feelsLike: metric.main.feels_like,
+          tempMax: metric.main.temp_max,
+          tempMin: metric.main.temp_min,
+        },
+        imperialUnits: {
+          feelsLike: imperial.main.feels_like,
+          tempMax: imperial.main.temp_max,
+          tempMin: imperial.main.temp_min,
+        },
       },
+      humidity: metric.main.humidity,
+      windSpeed: {
+        metricUnits: metric.wind.speed,
+        imperialUnits: imperial.wind.speed,
+      },
+      cloudiness: metric.clouds.all,
+      sunrise: format(fromUnixTime(metric.sys.sunrise), "HH:m:ss"),
+      sunset: format(fromUnixTime(metric.sys.sunset), "HH:mm:ss"),
     },
-    humidity: metric.main.humidity,
-    windSpeed: {
-      metricUnits: metric.wind.speed,
-      imperialUnits: imperial.wind.speed,
-    },
-    cloudiness: metric.clouds.all,
-    country: metric.sys.country,
-    sunrise: format(fromUnixTime(metric.sys.sunrise), "HH:m:ss"),
-    sunset: format(fromUnixTime(metric.sys.sunset), "HH:mm:ss"),
   };
   console.log(requiredData);
   pubsub.publish("getWeatherData", requiredData);

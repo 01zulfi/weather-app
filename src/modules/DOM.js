@@ -10,9 +10,27 @@ const formFunction = () => {
   });
 };
 
+const renderMain = (weatherDataMain) => {
+  document
+    .querySelector(".weather-main")
+    .append(JSON.stringify(weatherDataMain));
+};
+
+const renderDetails = (weatherDataDetails) => {
+  document
+    .querySelector(".weather-details")
+    .append(JSON.stringify(weatherDataDetails));
+};
+
+const renderWeatherData = (weatherData) => {
+  renderMain(weatherData.weatherMain);
+  renderDetails(weatherData.weatherDetails);
+};
+
 const domModule = {
   execute: () => {
     formFunction();
+    pubsub.subscribe("getWeatherData", renderWeatherData);
   },
 };
 
