@@ -71,9 +71,53 @@ const renderWeatherMainCard = (weatherDataMain) => {
 };
 
 const renderWeatherDetailsCard = (weatherDataDetails) => {
-  document
-    .querySelector(".weather-details-card")
-    .append(JSON.stringify(weatherDataDetails));
+  const renderDetailsObject = {
+    init() {
+      this.cacheDOM();
+      this.createElements();
+      this.appendElements();
+    },
+    cacheDOM() {
+      this.weatherDetailsDiv = document.querySelector(".weather-details-card");
+    },
+    createElements() {
+      this.tempDetailsDiv = DOMFactory("div", {
+        className: "temp-details-div",
+      });
+      this.tempFeelsLikeText = DOMFactory("p", {
+        textContent: `Feels Like:${weatherDataDetails.tempDetails.metricUnits.feelsLike}° C`,
+      });
+      this.tempMaxText = DOMFactory("p", {
+        textContent: `Max: ${weatherDataDetails.tempDetails.metricUnits.tempMax}° C`,
+      });
+      this.tempMinText = DOMFactory("p", {
+        textContent: `Min:${weatherDataDetails.tempDetails.metricUnits.tempMin}° C`,
+      });
+      this.cloudinessDiv = DOMFactory("div", {
+        textContent: `Cloudiness: ${weatherDataDetails.cloudiness}%`,
+      });
+      this.humidityDiv = DOMFactory("div", {
+        textContent: `Humidity: ${weatherDataDetails.humidity}%`,
+      });
+      this.windSpeedDiv = DOMFactory("div", {
+        textContent: `Wind Speed: ${weatherDataDetails.windSpeed.metricUnits} m/s`,
+      });
+    },
+    appendElements() {
+      this.tempDetailsDiv.append(
+        this.tempFeelsLikeText,
+        this.tempMaxText,
+        this.tempMinText,
+      );
+      this.weatherDetailsDiv.append(
+        this.tempDetailsDiv,
+        this.cloudinessDiv,
+        this.humidityDiv,
+        this.windSpeedDiv,
+      );
+    },
+  };
+  renderDetailsObject.init();
 };
 
 const renderWeatherData = (weatherData) => {

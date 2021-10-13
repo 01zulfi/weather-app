@@ -1,3 +1,7 @@
-.weather-main {
+.weather-main-card,
+.weather-details-card {
+  margin: 1vw;
+  padding: 3vw;
   border: 1px solid yellow;
+  background-color: antiquewhite;
 }
