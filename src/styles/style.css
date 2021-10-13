@@ -5,3 +5,7 @@
   border: 1px solid yellow;
   background-color: antiquewhite;
 }
+
+.hidden {
+  display: none;
+}

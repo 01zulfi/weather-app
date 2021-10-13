@@ -26,7 +26,7 @@ const renderWeatherMainCard = (weatherDataMain) => {
       this.cacheDOM();
       this.createElements();
       this.appendElements();
-      // this.bindEvents();
+      this.bindEvents();
     },
     cacheDOM() {
       this.weatherMainDiv = document.querySelector(".weather-main-card");
@@ -36,11 +36,20 @@ const renderWeatherMainCard = (weatherDataMain) => {
       this.cityAndCountryName = DOMFactory("p", {
         textContent: `${weatherDataMain.city}, ${weatherDataMain.country}`,
       });
+      this.changeUnitsButton = DOMFactory("button", {
+        textContent: "Change Units",
+        className: "change-units-button",
+      });
       this.tempAndIconDiv = DOMFactory("div", {
         className: "temp-and-icon-div",
       });
-      this.tempText = DOMFactory("p", {
+      this.tempMetricText = DOMFactory("p", {
+        className: "units-changeable",
         textContent: `${weatherDataMain.temp.metricUnits}° C`,
+      });
+      this.tempImperialText = DOMFactory("p", {
+        className: "units-changeable hidden",
+        textContent: `${weatherDataMain.temp.imperialUnits}° F`,
       });
       this.icon = DOMFactory("img", {
         src: `http://openweathermap.org/img/wn/${weatherDataMain.iconId}@2x.png`,
@@ -57,15 +66,26 @@ const renderWeatherMainCard = (weatherDataMain) => {
     },
     appendElements() {
       this.locationDiv.append(this.cityAndCountryName);
-      this.tempAndIconDiv.append(this.tempText, this.icon);
+      this.tempAndIconDiv.append(
+        this.tempMetricText,
+        this.tempImperialText,
+        this.icon,
+      );
       this.mainAndDescDiv.append(this.weatherMainText, this.weatherDescText);
       this.weatherMainDiv.append(
         this.locationDiv,
+        this.changeUnitsButton,
         this.tempAndIconDiv,
         this.mainAndDescDiv,
       );
     },
-    bindEvent() {},
+    bindEvents() {
+      this.changeUnitsButton.addEventListener("click", () => {
+        document
+          .querySelectorAll(".units-changeable")
+          .forEach((item) => item.classList.toggle("hidden"));
+      });
+    },
   };
   renderMainObject.init();
 };
