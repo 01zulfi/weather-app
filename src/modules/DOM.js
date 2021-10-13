@@ -10,21 +10,75 @@ const formFunction = () => {
   });
 };
 
-const renderMain = (weatherDataMain) => {
-  document
-    .querySelector(".weather-main")
-    .append(JSON.stringify(weatherDataMain));
+const DOMFactory = (element, attributes) => {
+  const newElement = document.createElement(element);
+  for (const attribute in attributes) {
+    if (!newElement[attribute]) {
+      newElement[attribute] = attributes[attribute];
+    }
+  }
+  return newElement;
 };
 
-const renderDetails = (weatherDataDetails) => {
+const renderWeatherMainCard = (weatherDataMain) => {
+  const renderMainObject = {
+    init() {
+      this.cacheDOM();
+      this.createElements();
+      this.appendElements();
+      // this.bindEvents();
+    },
+    cacheDOM() {
+      this.weatherMainDiv = document.querySelector(".weather-main-card");
+    },
+    createElements() {
+      this.locationDiv = DOMFactory("div", { className: "location-div" });
+      this.cityAndCountryName = DOMFactory("p", {
+        textContent: `${weatherDataMain.city}, ${weatherDataMain.country}`,
+      });
+      this.tempAndIconDiv = DOMFactory("div", {
+        className: "temp-and-icon-div",
+      });
+      this.tempText = DOMFactory("p", {
+        textContent: `${weatherDataMain.temp.metricUnits}° C`,
+      });
+      this.icon = DOMFactory("img", {
+        src: `http://openweathermap.org/img/wn/${weatherDataMain.iconId}@2x.png`,
+      });
+      this.mainAndDescDiv = DOMFactory("div", {
+        className: "weather-main-and-desc",
+      });
+      this.weatherMainText = DOMFactory("p", {
+        textContent: weatherDataMain.main,
+      });
+      this.weatherDescText = DOMFactory("p", {
+        textContent: weatherDataMain.desc,
+      });
+    },
+    appendElements() {
+      this.locationDiv.append(this.cityAndCountryName);
+      this.tempAndIconDiv.append(this.tempText, this.icon);
+      this.mainAndDescDiv.append(this.weatherMainText, this.weatherDescText);
+      this.weatherMainDiv.append(
+        this.locationDiv,
+        this.tempAndIconDiv,
+        this.mainAndDescDiv,
+      );
+    },
+    bindEvent() {},
+  };
+  renderMainObject.init();
+};
+
+const renderWeatherDetailsCard = (weatherDataDetails) => {
   document
-    .querySelector(".weather-details")
+    .querySelector(".weather-details-card")
     .append(JSON.stringify(weatherDataDetails));
 };
 
 const renderWeatherData = (weatherData) => {
-  renderMain(weatherData.weatherMain);
-  renderDetails(weatherData.weatherDetails);
+  renderWeatherMainCard(weatherData.weatherMain);
+  renderWeatherDetailsCard(weatherData.weatherDetails);
 };
 
 const domModule = {

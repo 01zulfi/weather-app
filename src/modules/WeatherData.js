@@ -13,8 +13,8 @@ const extractRequiredData = (metric, imperial) => {
       iconId: metric.weather[0].icon,
       desc: metric.weather[0].description.toLowerCase(),
       temp: {
-        metricUnits: metric.main.temp,
-        imperialUnits: imperial.main.temp,
+        metricUnits: Math.round(Number(metric.main.temp)),
+        imperialUnits: Math.round(Number(imperial.main.temp)),
       },
       city: metric.name,
       country: metric.sys.country,
@@ -22,14 +22,14 @@ const extractRequiredData = (metric, imperial) => {
     weatherDetails: {
       tempDetails: {
         metricUnits: {
-          feelsLike: metric.main.feels_like,
-          tempMax: metric.main.temp_max,
-          tempMin: metric.main.temp_min,
+          feelsLike: Math.round(Number(metric.main.feels_like)),
+          tempMax: Math.round(Number(metric.main.temp_max)),
+          tempMin: Math.round(Number(metric.main.temp_min)),
         },
         imperialUnits: {
-          feelsLike: imperial.main.feels_like,
-          tempMax: imperial.main.temp_max,
-          tempMin: imperial.main.temp_min,
+          feelsLike: Math.round(Number(imperial.main.feels_like)),
+          tempMax: Math.round(Number(imperial.main.temp_max)),
+          tempMin: Math.round(Number(imperial.main.temp_min)),
         },
       },
       humidity: metric.main.humidity,
