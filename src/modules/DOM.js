@@ -20,6 +20,11 @@ const DOMFactory = (element, attributes) => {
   return newElement;
 };
 
+const clearError = () => {
+  const errorMessageSpan = document.querySelector(".error-message");
+  errorMessageSpan.textContent = "";
+};
+
 const clearWeatherMainCard = () => {
   const weatherMainCard = document.querySelector(".weather-main-card");
   while (weatherMainCard.firstChild) {
@@ -37,6 +42,12 @@ const clearWeatherDetailsCard = () => {
 const clearWeatherData = () => {
   clearWeatherMainCard();
   clearWeatherDetailsCard();
+};
+
+const renderError = (errorMessage) => {
+  clearWeatherData();
+  const errorMessageSpan = document.querySelector(".error-message");
+  errorMessageSpan.textContent = errorMessage;
 };
 
 const renderWeatherMainCard = (weatherDataMain) => {
@@ -185,6 +196,7 @@ const changeUnits = () => {
 };
 
 const renderWeatherData = (weatherData) => {
+  clearError();
   clearWeatherData();
   renderWeatherMainCard(weatherData.weatherMain);
   renderWeatherDetailsCard(weatherData.weatherDetails);
@@ -194,6 +206,7 @@ const renderWeatherData = (weatherData) => {
 const domModule = {
   execute: () => {
     formFunction();
+    pubsub.subscribe("errorWhileFetching", renderError);
     pubsub.subscribe("getWeatherData", renderWeatherData);
   },
 };

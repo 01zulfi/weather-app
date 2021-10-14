@@ -42,10 +42,17 @@ const extractRequiredData = (metric, imperial) => {
       sunset: format(fromUnixTime(metric.sys.sunset), "HH:mm:ss"),
     },
   };
-  console.log(requiredData);
   pubsub.publish("getWeatherData", requiredData);
 };
 
+const checkForError = (dataObject) => {
+  if (dataObject.cod === 200) return false;
+  return true;
+};
+
+const handleError = (dataObject) => {
+  pubsub.publish("errorWhileFetching", dataObject.message);
+};
 const getWeatherData = async (cityName) => {
   const [metricUnitsPromise, imperialUnitsPromise] = await Promise.all([
     fetch(getAPILink(cityName, "metric")),
@@ -53,7 +60,11 @@ const getWeatherData = async (cityName) => {
   ]);
   const dataInMetricUnits = await metricUnitsPromise.json();
   const dataInImperialUnits = await imperialUnitsPromise.json();
-  extractRequiredData(dataInMetricUnits, dataInImperialUnits);
+  if (checkForError(dataInMetricUnits)) {
+    handleError(dataInMetricUnits);
+  } else {
+    extractRequiredData(dataInMetricUnits, dataInImperialUnits);
+  }
 };
 
 const weatherDataModule = {

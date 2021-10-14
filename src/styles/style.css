@@ -9,3 +9,7 @@
 .hidden {
   display: none;
 }
+
+span {
+  background-color: red;
+}
