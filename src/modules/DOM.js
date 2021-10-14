@@ -26,7 +26,6 @@ const renderWeatherMainCard = (weatherDataMain) => {
       this.cacheDOM();
       this.createElements();
       this.appendElements();
-      this.bindEvents();
     },
     cacheDOM() {
       this.weatherMainDiv = document.querySelector(".weather-main-card");
@@ -79,13 +78,6 @@ const renderWeatherMainCard = (weatherDataMain) => {
         this.mainAndDescDiv,
       );
     },
-    bindEvents() {
-      this.changeUnitsButton.addEventListener("click", () => {
-        document
-          .querySelectorAll(".units-changeable")
-          .forEach((item) => item.classList.toggle("hidden"));
-      });
-    },
   };
   renderMainObject.init();
 };
@@ -104,14 +96,29 @@ const renderWeatherDetailsCard = (weatherDataDetails) => {
       this.tempDetailsDiv = DOMFactory("div", {
         className: "temp-details-div",
       });
-      this.tempFeelsLikeText = DOMFactory("p", {
+      this.tempFeelsLikeMetricText = DOMFactory("p", {
+        className: "units-changeable",
         textContent: `Feels Like:${weatherDataDetails.tempDetails.metricUnits.feelsLike}° C`,
       });
-      this.tempMaxText = DOMFactory("p", {
+      this.tempFeelsLikeImperialText = DOMFactory("p", {
+        className: "units-changeable hidden",
+        textContent: `Feels Like:${weatherDataDetails.tempDetails.imperialUnits.feelsLike}° F`,
+      });
+      this.tempMaxMetricText = DOMFactory("p", {
+        className: "units-changeable",
         textContent: `Max: ${weatherDataDetails.tempDetails.metricUnits.tempMax}° C`,
       });
-      this.tempMinText = DOMFactory("p", {
+      this.tempMaxImperialText = DOMFactory("p", {
+        className: "units-changeable hidden",
+        textContent: `Max: ${weatherDataDetails.tempDetails.imperialUnits.tempMax}° F`,
+      });
+      this.tempMinMetricText = DOMFactory("p", {
+        className: "units-changeable",
         textContent: `Min:${weatherDataDetails.tempDetails.metricUnits.tempMin}° C`,
+      });
+      this.tempMinImperialText = DOMFactory("p", {
+        className: "units-changeable hidden",
+        textContent: `Min:${weatherDataDetails.tempDetails.imperialUnits.tempMin}° F`,
       });
       this.cloudinessDiv = DOMFactory("div", {
         textContent: `Cloudiness: ${weatherDataDetails.cloudiness}%`,
@@ -119,30 +126,49 @@ const renderWeatherDetailsCard = (weatherDataDetails) => {
       this.humidityDiv = DOMFactory("div", {
         textContent: `Humidity: ${weatherDataDetails.humidity}%`,
       });
-      this.windSpeedDiv = DOMFactory("div", {
-        textContent: `Wind Speed: ${weatherDataDetails.windSpeed.metricUnits} m/s`,
+      this.windSpeedMetricDiv = DOMFactory("div", {
+        className: "units-changeable",
+        textContent: `Wind Speed: ${weatherDataDetails.windSpeed.metricUnits} meter/second`,
+      });
+      this.windSpeedImperialDiv = DOMFactory("div", {
+        className: "units-changeable hidden",
+        textContent: `Wind Speed: ${weatherDataDetails.windSpeed.imperialUnits} miles/hour`,
       });
     },
     appendElements() {
       this.tempDetailsDiv.append(
-        this.tempFeelsLikeText,
-        this.tempMaxText,
-        this.tempMinText,
+        this.tempFeelsLikeMetricText,
+        this.tempFeelsLikeImperialText,
+        this.tempMaxMetricText,
+        this.tempMaxImperialText,
+        this.tempMinMetricText,
+        this.tempMinImperialText,
       );
       this.weatherDetailsDiv.append(
         this.tempDetailsDiv,
         this.cloudinessDiv,
         this.humidityDiv,
-        this.windSpeedDiv,
+        this.windSpeedMetricDiv,
+        this.windSpeedImperialDiv,
       );
     },
   };
   renderDetailsObject.init();
 };
 
+const changeUnits = () => {
+  const changeUnitsButton = document.querySelector(".change-units-button");
+  const unitsChangeableElements =
+    document.querySelectorAll(".units-changeable");
+  changeUnitsButton.addEventListener("click", () => {
+    unitsChangeableElements.forEach((el) => el.classList.toggle("hidden"));
+  });
+};
+
 const renderWeatherData = (weatherData) => {
   renderWeatherMainCard(weatherData.weatherMain);
   renderWeatherDetailsCard(weatherData.weatherDetails);
+  changeUnits();
 };
 
 const domModule = {
