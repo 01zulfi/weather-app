@@ -55,6 +55,7 @@ const checkForError = (dataObject) => {
 };
 
 const handleError = (dataObject) => {
+  console.clear();
   pubsub.publish("errorWhileFetching", dataObject.message);
 };
 
