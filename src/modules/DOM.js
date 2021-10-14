@@ -20,17 +20,29 @@ const DOMFactory = (element, attributes) => {
   return newElement;
 };
 
-const renderNoDataMessage = () => {
-  const noDataMessage = DOMFactory("p", {
+const createLoaderDiv = () => DOMFactory("div", { className: "loader" });
+
+const renderLoadingComponent = () => {
+  const weatherMainCard = document.querySelector(".weather-main-card");
+  const weatherDetailsCard = document.querySelector(".weather-details-card");
+  weatherMainCard.append(createLoaderDiv());
+  weatherDetailsCard.append(createLoaderDiv());
+};
+
+const createNoDataMessage = () => {
+  const container = DOMFactory("p", {
     className: "no-data-message",
     textContent:
       "Nothing to show here... Enter your favorite city to get the weather",
   });
-  const noDataMessageClone = noDataMessage.cloneNode(true);
+  return container;
+};
+
+const renderNoDataMessage = () => {
   const weatherMainCard = document.querySelector(".weather-main-card");
   const weatherDetailsCard = document.querySelector(".weather-details-card");
-  weatherMainCard.append(noDataMessage);
-  weatherDetailsCard.append(noDataMessageClone);
+  weatherMainCard.append(createNoDataMessage());
+  weatherDetailsCard.append(createNoDataMessage());
 };
 
 const clearNoDataMessage = () => {
@@ -226,6 +238,7 @@ const renderWeatherData = (weatherData) => {
 const domModule = {
   execute: () => {
     formFunction();
+    pubsub.subscribe("loading", renderLoadingComponent);
     pubsub.subscribe("errorWhileFetching", renderError);
     pubsub.subscribe("getWeatherData", renderWeatherData);
   },

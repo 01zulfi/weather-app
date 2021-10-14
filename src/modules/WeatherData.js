@@ -1,6 +1,10 @@
 import { fromUnixTime, format } from "date-fns";
 import pubsub from "./Pubsub";
 
+const sendEventForLoading = () => {
+  pubsub.publish("loading");
+};
+
 const getAPILink = (cityName, units) => {
   const APILink = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${units}&APPID=449b05371154016e4225fe1f885a634e`;
   return APILink;
@@ -53,7 +57,9 @@ const checkForError = (dataObject) => {
 const handleError = (dataObject) => {
   pubsub.publish("errorWhileFetching", dataObject.message);
 };
+
 const getWeatherData = async (cityName) => {
+  sendEventForLoading();
   const [metricUnitsPromise, imperialUnitsPromise] = await Promise.all([
     fetch(getAPILink(cityName, "metric")),
     fetch(getAPILink(cityName, "imperial")),
