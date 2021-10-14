@@ -20,6 +20,24 @@ const DOMFactory = (element, attributes) => {
   return newElement;
 };
 
+const renderNoDataMessage = () => {
+  const noDataMessage = DOMFactory("p", {
+    className: "no-data-message",
+    textContent:
+      "Nothing to show here... Enter your favorite city to get the weather",
+  });
+  const noDataMessageClone = noDataMessage.cloneNode(true);
+  const weatherMainCard = document.querySelector(".weather-main-card");
+  const weatherDetailsCard = document.querySelector(".weather-details-card");
+  weatherMainCard.append(noDataMessage);
+  weatherDetailsCard.append(noDataMessageClone);
+};
+
+const clearNoDataMessage = () => {
+  const noDataMessages = document.querySelectorAll(".no-data-messages");
+  noDataMessages.forEach((message) => message.remove());
+};
+
 const clearError = () => {
   const errorMessageSpan = document.querySelector(".error-message");
   errorMessageSpan.textContent = "";
@@ -46,6 +64,7 @@ const clearWeatherData = () => {
 
 const renderError = (errorMessage) => {
   clearWeatherData();
+  renderNoDataMessage();
   const errorMessageSpan = document.querySelector(".error-message");
   errorMessageSpan.textContent = errorMessage;
 };
@@ -196,6 +215,7 @@ const changeUnits = () => {
 };
 
 const renderWeatherData = (weatherData) => {
+  clearNoDataMessage();
   clearError();
   clearWeatherData();
   renderWeatherMainCard(weatherData.weatherMain);
