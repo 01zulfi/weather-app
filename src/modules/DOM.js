@@ -20,6 +20,25 @@ const DOMFactory = (element, attributes) => {
   return newElement;
 };
 
+const clearWeatherMainCard = () => {
+  const weatherMainCard = document.querySelector(".weather-main-card");
+  while (weatherMainCard.firstChild) {
+    weatherMainCard.lastChild.remove();
+  }
+};
+
+const clearWeatherDetailsCard = () => {
+  const weatherDetailsCard = document.querySelector(".weather-details-card");
+  while (weatherDetailsCard.firstChild) {
+    weatherDetailsCard.lastChild.remove();
+  }
+};
+
+const clearWeatherData = () => {
+  clearWeatherMainCard();
+  clearWeatherDetailsCard();
+};
+
 const renderWeatherMainCard = (weatherDataMain) => {
   const renderMainObject = {
     init() {
@@ -166,6 +185,7 @@ const changeUnits = () => {
 };
 
 const renderWeatherData = (weatherData) => {
+  clearWeatherData();
   renderWeatherMainCard(weatherData.weatherMain);
   renderWeatherDetailsCard(weatherData.weatherDetails);
   changeUnits();
