@@ -196,6 +196,15 @@ const renderWeatherDetailsCard = (weatherDataDetails) => {
         className: "units-changeable hidden",
         textContent: `Wind Speed: ${weatherDataDetails.windSpeed.imperialUnits} miles/hour`,
       });
+      this.sunriseSunsetDiv = DOMFactory("div", {
+        className: "sunrise-sunset-div",
+      });
+      this.sunriseText = DOMFactory("p", {
+        textContent: `Sunrise: ${weatherDataDetails.sunrise}`,
+      });
+      this.sunsetText = DOMFactory("p", {
+        textContent: `Sunset: ${weatherDataDetails.sunset}`,
+      });
     },
     appendElements() {
       this.tempDetailsDiv.append(
@@ -206,12 +215,14 @@ const renderWeatherDetailsCard = (weatherDataDetails) => {
         this.tempMinMetricText,
         this.tempMinImperialText,
       );
+      this.sunriseSunsetDiv.append(this.sunriseText, this.sunsetText);
       this.weatherDetailsDiv.append(
         this.tempDetailsDiv,
         this.cloudinessDiv,
         this.humidityDiv,
         this.windSpeedMetricDiv,
         this.windSpeedImperialDiv,
+        this.sunriseSunsetDiv,
       );
     },
   };
