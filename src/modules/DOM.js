@@ -22,13 +22,6 @@ const DOMFactory = (element, attributes) => {
 
 const createLoaderDiv = () => DOMFactory("div", { className: "loader" });
 
-const renderLoadingComponent = () => {
-  const weatherMainCard = document.querySelector(".weather-main-card");
-  const weatherDetailsCard = document.querySelector(".weather-details-card");
-  weatherMainCard.append(createLoaderDiv());
-  weatherDetailsCard.append(createLoaderDiv());
-};
-
 const createNoDataMessage = () => {
   const container = DOMFactory("p", {
     className: "no-data-message",
@@ -72,6 +65,14 @@ const clearWeatherDetailsCard = () => {
 const clearWeatherData = () => {
   clearWeatherMainCard();
   clearWeatherDetailsCard();
+};
+
+const renderLoadingComponent = () => {
+  clearWeatherData();
+  const weatherMainCard = document.querySelector(".weather-main-card");
+  const weatherDetailsCard = document.querySelector(".weather-details-card");
+  weatherMainCard.append(createLoaderDiv());
+  weatherDetailsCard.append(createLoaderDiv());
 };
 
 const renderError = (errorMessage) => {
