@@ -4,8 +4,6 @@
 
 [Click to visit](https://xari4808.github.io/weather-app/)
 
-<hr>
-
 ## Written in
 
 <ul>
@@ -14,19 +12,13 @@
     <li>JavaScript</li>
 </ul>
 
-<hr>
-
 ## Bundled in
 
 <a href="webpack.js.org">Webpack</a>
 
-<hr>
-
 ## Libraries
 
 <a href="https://date-fns.org/">date-fns</a>
-
-<hr>
 
 ## Attributions
 

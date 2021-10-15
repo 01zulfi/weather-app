@@ -113,7 +113,7 @@ const renderBackgroundImage = (weatherMain) => {
     body.classList.add("clouds-more");
     return;
   }
-  if (weatherMain.iconId.includes("50d")) {
+  if (weatherMain.iconId.includes("50")) {
     body.classList.add("atmosphere");
     return;
   }

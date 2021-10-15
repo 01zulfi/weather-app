@@ -6,8 +6,8 @@ const sendEventForLoading = () => {
 };
 
 const getAPILink = (cityName, units) => {
-  const APILink = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${units}&APPID=449b05371154016e4225fe1f885a634e`;
-  return APILink;
+  const link = `http://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${units}&APPID=449b05371154016e4225fe1f885a634e`;
+  return link;
 };
 
 const extractRequiredData = (metric, imperial) => {
