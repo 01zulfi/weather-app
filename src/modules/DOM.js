@@ -1,12 +1,20 @@
 import pubsub from "./Pubsub";
 
-const formFunction = () => {
+const preventDefaultFormBehavior = (event) => {
+  event.preventDefault();
+  event.target.reset();
+};
+
+const publishFormData = (form) => {
+  const cityName = form.cityNameInput;
+  pubsub.publish("getCityName", cityName.value);
+};
+
+const handleForm = () => {
   const form = document.querySelector("form");
   form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const cityName = form.cityNameInput;
-    pubsub.publish("getCityName", cityName.value);
-    form.reset();
+    publishFormData(form);
+    preventDefaultFormBehavior(event);
   });
 };
 
@@ -249,7 +257,7 @@ const renderWeatherData = (weatherData) => {
 
 const domModule = {
   execute: () => {
-    formFunction();
+    handleForm();
     pubsub.subscribe("loading", renderLoadingComponent);
     pubsub.subscribe("errorWhileFetching", renderError);
     pubsub.subscribe("getWeatherData", renderWeatherData);
