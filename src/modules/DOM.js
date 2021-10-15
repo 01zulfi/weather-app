@@ -151,7 +151,7 @@ const renderWeatherMainCard = (weatherDataMain) => {
         textContent: `${weatherDataMain.temp.imperialUnits}° F`,
       });
       this.icon = DOMFactory("img", {
-        src: `http://openweathermap.org/img/wn/${weatherDataMain.iconId}@2x.png`,
+        src: `https://openweathermap.org/img/wn/${weatherDataMain.iconId}@2x.png`,
       });
       this.mainAndDescDiv = DOMFactory("div", {
         className: "weather-main-and-desc",
