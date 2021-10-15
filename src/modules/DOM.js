@@ -33,6 +33,16 @@ const DOMFactory = (element, attributes) => {
   return newElement;
 };
 
+const renderFavicon = () => {
+  const head = document.querySelector("head");
+  const favicon = DOMFactory("link", {
+    type: "image/png",
+    rel: "icon",
+    href: sunIcon,
+  });
+  head.append(favicon);
+};
+
 const createLoaderDiv = () => DOMFactory("div", { className: "loader" });
 
 const createNoDataMessage = () => {
@@ -189,28 +199,28 @@ const renderWeatherDetailsCard = (weatherDataDetails) => {
       });
       this.tempFeelsLikeMetricText = DOMFactory("p", {
         className: "units-changeable",
-        textContent: `Feels Like:${weatherDataDetails.tempDetails.metricUnits.feelsLike}° C`,
+        textContent: `Feels Like: ${weatherDataDetails.tempDetails.metricUnits.feelsLike}° C`,
       });
       this.tempFeelsLikeImperialText = DOMFactory("p", {
         className: "units-changeable hidden",
-        textContent: `Feels Like:${weatherDataDetails.tempDetails.imperialUnits.feelsLike}° F`,
+        textContent: `Feels Like: ${weatherDataDetails.tempDetails.imperialUnits.feelsLike}° F`,
       });
       this.tempMaxMetricText = DOMFactory("p", {
         className: "units-changeable",
-        textContent: `Max: ${weatherDataDetails.tempDetails.metricUnits.tempMax}° C`,
+        textContent: `Max:  ${weatherDataDetails.tempDetails.metricUnits.tempMax}° C`,
       });
       this.thermostatIcon = DOMFactory("img", { src: thermostatIcon });
       this.tempMaxImperialText = DOMFactory("p", {
         className: "units-changeable hidden",
-        textContent: `Max: ${weatherDataDetails.tempDetails.imperialUnits.tempMax}° F`,
+        textContent: `Max:  ${weatherDataDetails.tempDetails.imperialUnits.tempMax}° F`,
       });
       this.tempMinMetricText = DOMFactory("p", {
         className: "units-changeable",
-        textContent: `Min:${weatherDataDetails.tempDetails.metricUnits.tempMin}° C`,
+        textContent: `Min:  ${weatherDataDetails.tempDetails.metricUnits.tempMin}° C`,
       });
       this.tempMinImperialText = DOMFactory("p", {
         className: "units-changeable hidden",
-        textContent: `Min:${weatherDataDetails.tempDetails.imperialUnits.tempMin}° F`,
+        textContent: `Min:  ${weatherDataDetails.tempDetails.imperialUnits.tempMin}° F`,
       });
       this.cloudinessDiv = DOMFactory("div");
       this.cloudinessText = DOMFactory("div", {
@@ -304,6 +314,7 @@ const renderWeatherData = (weatherData) => {
 const domModule = {
   execute: () => {
     handleForm();
+    renderFavicon();
     pubsub.subscribe("loading", renderLoadingComponent);
     pubsub.subscribe("errorWhileFetching", renderError);
     pubsub.subscribe("getWeatherData", renderWeatherData);
