@@ -90,6 +90,20 @@ const renderError = (errorMessage) => {
   errorMessageSpan.textContent = errorMessage;
 };
 
+const renderBackgroundImage = (weatherMain) => {
+  const body = document.querySelector("body");
+  body.className = "";
+  if (weatherMain.iconId.includes("04")) {
+    body.classList.add("clouds-more");
+    return;
+  }
+  if (weatherMain.iconId.includes("50d")) {
+    body.classList.add("atmosphere");
+    return;
+  }
+  body.classList.add(weatherMain.main.toLowerCase());
+};
+
 const renderWeatherMainCard = (weatherDataMain) => {
   const renderMainObject = {
     init() {
@@ -102,15 +116,15 @@ const renderWeatherMainCard = (weatherDataMain) => {
     },
     createElements() {
       this.locationDiv = DOMFactory("div", { className: "location-div" });
-      this.cityAndCountryName = DOMFactory("p", {
+      this.cityAndCountryName = DOMFactory("h2", {
         textContent: `${weatherDataMain.city}, ${weatherDataMain.country}`,
       });
       this.changeUnitsButton = DOMFactory("button", {
-        textContent: "Change Units",
+        textContent: "F°",
         className: "change-units-button",
       });
-      this.tempAndIconDiv = DOMFactory("div", {
-        className: "temp-and-icon-div",
+      this.tempMainDiv = DOMFactory("div", {
+        className: "temp-main-div",
       });
       this.tempMetricText = DOMFactory("p", {
         className: "units-changeable",
@@ -127,25 +141,27 @@ const renderWeatherMainCard = (weatherDataMain) => {
         className: "weather-main-and-desc",
       });
       this.weatherMainText = DOMFactory("p", {
+        className: "weather-main-text",
         textContent: weatherDataMain.main,
       });
       this.weatherDescText = DOMFactory("p", {
+        className: "weather-desc-text",
         textContent: weatherDataMain.desc,
       });
     },
     appendElements() {
       this.locationDiv.append(this.cityAndCountryName);
-      this.tempAndIconDiv.append(
+      this.tempMainDiv.append(
         this.tempMetricText,
         this.tempImperialText,
-        this.icon,
+        this.changeUnitsButton,
       );
       this.mainAndDescDiv.append(this.weatherMainText, this.weatherDescText);
       this.weatherMainDiv.append(
         this.locationDiv,
-        this.changeUnitsButton,
-        this.tempAndIconDiv,
         this.mainAndDescDiv,
+        this.tempMainDiv,
+        this.icon,
       );
     },
   };
@@ -242,6 +258,11 @@ const changeUnits = () => {
   const unitsChangeableElements =
     document.querySelectorAll(".units-changeable");
   changeUnitsButton.addEventListener("click", () => {
+    if (changeUnitsButton.textContent === "F°") {
+      changeUnitsButton.textContent = "C°";
+    } else {
+      changeUnitsButton.textContent = "F°";
+    }
     unitsChangeableElements.forEach((el) => el.classList.toggle("hidden"));
   });
 };
@@ -250,6 +271,7 @@ const renderWeatherData = (weatherData) => {
   clearNoDataMessage();
   clearError();
   clearWeatherData();
+  renderBackgroundImage(weatherData.weatherMain);
   renderWeatherMainCard(weatherData.weatherMain);
   renderWeatherDetailsCard(weatherData.weatherDetails);
   changeUnits();

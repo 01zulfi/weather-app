@@ -5,14 +5,43 @@ body {
   gap: 20px;
 }
 
+body.clouds {
+  background-image: url(../images/clouds.jpg);
+  background-size: 100% 100%;
+}
+
+body.clouds-more {
+  background-image: url(../images/clouds-more.jpg);
+  background-size: 100% 100%;
+}
+
+body.thunderstorm {
+  background-image: url(../images/thunderstorm.jpg);
+  background-size: 100% 100%;
+}
+
+body.clear {
+  background-image: url(../images/clear-sky.jpg);
+  background-size: 100% 100%;
+}
+
+body.atmosphere {
+  background-image: url(../images/atmosphere.jpg);
+  background-size: 100% 100%;
+}
+
+body.rain {
+  background-image: url(../images/rain.jpg);
+  background-size: 100% 100%;
+}
+
 h1 {
   width: 100%;
   text-align: center;
-  background-color: #f6dfeb;
-  border-bottom: 3px solid #2a0944;
+  background-color: rgba(113, 199, 236, 0.5);
+  border-bottom: 3px solid #005073;
   border-radius: 4px;
   padding: 10px;
-  color: #2a0944;
 }
 
 .dataContainer {
@@ -24,17 +53,18 @@ h1 {
 }
 
 form input {
-  border: 2px solid #e4bad4;
+  border: 2px solid #005073;
   border-radius: 10px;
   padding: 5px;
+  background-color: rgb(245, 245, 245, 0.4);
 }
 
 button {
-  border: 2px solid #e4bad4;
+  border: 2px solid #005073;
   border-radius: 10px;
   padding: 5px;
   background-color: rgb(246, 223, 235, 0.2);
-  color: #420516;
+  color: black;
 }
 
 .hidden {
@@ -46,23 +76,66 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px solid #e4bad4;
+  box-shadow: 0px 15px 30px rgb(0 80 115 / 15%);
   border-radius: 10px;
   width: inherit;
   padding: 5px;
 }
 
 .weather-main-card {
-  height: 25vh;
+  justify-content: space-around;
+  gap: 5px;
+  flex-wrap: wrap;
+  background-color: rgb(245, 245, 245, 0.4);
+}
+
+.weather-main-card .location-div {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  background-color: rgb(246, 223, 235, 0.2);
+}
+
+.weather-main-card .weather-main-and-desc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+  background-color: rgb(245, 245, 245, 0.6);
+  width: 50%;
+}
+
+.weather-main-card .weather-main-and-desc .weather-main-text {
+  font-size: 20px;
+}
+
+.weather-main-card .temp-main-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+  width: 50%;
+  align-items: center;
+  background-color: #b3cde0;
+  border-radius: 5px;
+}
+
+.weather-main-card .temp-main-div button {
+  border: 0px;
+  background-color: #6497b1;
 }
 
 .weather-details-card {
-  height: 35vh;
+  display: flex;
+  border: 5px solid #005073;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.weather-details-card div {
+  background-color: rgb(245, 245, 245, 0.8);
+  width: 95%;
+  border: 1px solid #005073;
   display: flex;
   justify-content: center;
   align-items: center;
