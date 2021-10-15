@@ -44,7 +44,8 @@ h1 {
   padding: 10px;
 }
 
-.dataContainer {
+.dataContainer,
+.weather-cards {
   width: 85vw;
   display: flex;
   flex-direction: column;
@@ -173,6 +174,11 @@ button:focus {
 
 .attribution {
   margin-bottom: 15px;
+  background-color: rgb(245, 245, 245, 0.4);
+  padding: 10px;
+  border-radius: 10px;
+  width: 85%;
+  text-align: center;
 }
 
 p.no-data-message {
@@ -196,4 +202,27 @@ div.loader {
   to {
     transform: rotate(360deg);
   }
+}
+
+@media only screen and (min-width: 768px) {
+  .weather-cards {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .weather-main-card,
+  .weather-details-card {
+    height: 100%;
+    background-color: rgb(245, 245, 245, 0.6);
+  }
+  .attribution {
+    width: 25%;
+  }
+}
+
+::-webkit-scrollbar {
+  background-color: rgb(245, 245, 245, 0.4);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #b3cde0;
 }
