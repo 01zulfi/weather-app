@@ -1,4 +1,9 @@
 import pubsub from "./Pubsub";
+import sunIcon from "../icons/sun.svg";
+import waterIcon from "../icons/water.svg";
+import thermostatIcon from "../icons/thermostat.svg";
+import cloudIcon from "../icons/cloud.svg";
+import airIcon from "../icons/air.svg";
 
 const preventDefaultFormBehavior = (event) => {
   event.preventDefault();
@@ -194,6 +199,7 @@ const renderWeatherDetailsCard = (weatherDataDetails) => {
         className: "units-changeable",
         textContent: `Max: ${weatherDataDetails.tempDetails.metricUnits.tempMax}° C`,
       });
+      this.thermostatIcon = DOMFactory("img", { src: thermostatIcon });
       this.tempMaxImperialText = DOMFactory("p", {
         className: "units-changeable hidden",
         textContent: `Max: ${weatherDataDetails.tempDetails.imperialUnits.tempMax}° F`,
@@ -206,12 +212,18 @@ const renderWeatherDetailsCard = (weatherDataDetails) => {
         className: "units-changeable hidden",
         textContent: `Min:${weatherDataDetails.tempDetails.imperialUnits.tempMin}° F`,
       });
-      this.cloudinessDiv = DOMFactory("div", {
+      this.cloudinessDiv = DOMFactory("div");
+      this.cloudinessText = DOMFactory("div", {
         textContent: `Cloudiness: ${weatherDataDetails.cloudiness}%`,
       });
-      this.humidityDiv = DOMFactory("div", {
+      this.cloudIcon = DOMFactory("img", { src: cloudIcon });
+      this.humidityDiv = DOMFactory("div");
+      this.humidityText = DOMFactory("div", {
         textContent: `Humidity: ${weatherDataDetails.humidity}%`,
       });
+      this.humidityIcon = DOMFactory("img", { src: waterIcon });
+      this.windSpeedDiv = DOMFactory("div");
+      this.windIcon = DOMFactory("img", { src: airIcon });
       this.windSpeedMetricDiv = DOMFactory("div", {
         className: "units-changeable",
         textContent: `Wind Speed: ${weatherDataDetails.windSpeed.metricUnits} meter/second`,
@@ -223,6 +235,7 @@ const renderWeatherDetailsCard = (weatherDataDetails) => {
       this.sunriseSunsetDiv = DOMFactory("div", {
         className: "sunrise-sunset-div",
       });
+      this.sunIcon = DOMFactory("img", { src: sunIcon });
       this.sunriseText = DOMFactory("p", {
         textContent: `Sunrise: ${weatherDataDetails.sunrise}`,
       });
@@ -232,6 +245,7 @@ const renderWeatherDetailsCard = (weatherDataDetails) => {
     },
     appendElements() {
       this.tempDetailsDiv.append(
+        this.thermostatIcon,
         this.tempFeelsLikeMetricText,
         this.tempFeelsLikeImperialText,
         this.tempMaxMetricText,
@@ -239,13 +253,23 @@ const renderWeatherDetailsCard = (weatherDataDetails) => {
         this.tempMinMetricText,
         this.tempMinImperialText,
       );
-      this.sunriseSunsetDiv.append(this.sunriseText, this.sunsetText);
+      this.cloudinessDiv.append(this.cloudIcon, this.cloudinessText);
+      this.humidityDiv.append(this.humidityIcon, this.humidityText);
+      this.windSpeedDiv.append(
+        this.windIcon,
+        this.windSpeedMetricDiv,
+        this.windSpeedImperialDiv,
+      );
+      this.sunriseSunsetDiv.append(
+        this.sunIcon,
+        this.sunriseText,
+        this.sunsetText,
+      );
       this.weatherDetailsDiv.append(
         this.tempDetailsDiv,
         this.cloudinessDiv,
         this.humidityDiv,
-        this.windSpeedMetricDiv,
-        this.windSpeedImperialDiv,
+        this.windSpeedDiv,
         this.sunriseSunsetDiv,
       );
     },
