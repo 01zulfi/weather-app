@@ -61,11 +61,6 @@ const renderNoDataMessage = () => {
   weatherDetailsCard.append(createNoDataMessage());
 };
 
-const clearNoDataMessage = () => {
-  const noDataMessages = document.querySelectorAll(".no-data-messages");
-  noDataMessages.forEach((message) => message.remove());
-};
-
 const clearError = () => {
   const errorMessageText = document.querySelector(".error-message");
   if (!errorMessageText) return;
@@ -126,7 +121,7 @@ const renderBackgroundImage = (weatherMain) => {
 };
 
 const renderWeatherMainCard = (weatherDataMain) => {
-  const renderMainObject = {
+  const renderWeatherMainObject = {
     init() {
       this.cacheDOM();
       this.createElements();
@@ -186,11 +181,11 @@ const renderWeatherMainCard = (weatherDataMain) => {
       );
     },
   };
-  renderMainObject.init();
+  renderWeatherMainObject.init();
 };
 
 const renderWeatherDetailsCard = (weatherDataDetails) => {
-  const renderDetailsObject = {
+  const renderWeatherDetailsObject = {
     init() {
       this.cacheDOM();
       this.createElements();
@@ -200,9 +195,7 @@ const renderWeatherDetailsCard = (weatherDataDetails) => {
       this.weatherDetailsDiv = document.querySelector(".weather-details-card");
     },
     createElements() {
-      this.tempDetailsDiv = DOMFactory("div", {
-        className: "temp-details-div",
-      });
+      this.tempDetailsDiv = DOMFactory("div");
       this.tempFeelsLikeMetricText = DOMFactory("p", {
         className: "units-changeable",
         textContent: `Feels Like: ${weatherDataDetails.tempDetails.metricUnits.feelsLike}° C`,
@@ -248,9 +241,7 @@ const renderWeatherDetailsCard = (weatherDataDetails) => {
         className: "units-changeable hidden",
         textContent: `Wind Speed: ${weatherDataDetails.windSpeed.imperialUnits} miles/hour`,
       });
-      this.sunriseSunsetDiv = DOMFactory("div", {
-        className: "sunrise-sunset-div",
-      });
+      this.sunriseSunsetDiv = DOMFactory("div");
       this.sunIcon = DOMFactory("img", { src: sunIcon });
       this.sunriseText = DOMFactory("p", {
         textContent: `Sunrise: ${weatherDataDetails.sunrise}`,
@@ -290,7 +281,17 @@ const renderWeatherDetailsCard = (weatherDataDetails) => {
       );
     },
   };
-  renderDetailsObject.init();
+  renderWeatherDetailsObject.init();
+};
+
+const changeUnitsButtonTextContent = (changeUnitsButton) => {
+  const { textContent } = changeUnitsButton;
+  const button = changeUnitsButton;
+  if (textContent === "F°") {
+    button.textContent = "C°";
+    return;
+  }
+  button.textContent = "F°";
 };
 
 const changeUnits = () => {
@@ -298,17 +299,12 @@ const changeUnits = () => {
   const unitsChangeableElements =
     document.querySelectorAll(".units-changeable");
   changeUnitsButton.addEventListener("click", () => {
-    if (changeUnitsButton.textContent === "F°") {
-      changeUnitsButton.textContent = "C°";
-    } else {
-      changeUnitsButton.textContent = "F°";
-    }
+    changeUnitsButtonTextContent(changeUnitsButton);
     unitsChangeableElements.forEach((el) => el.classList.toggle("hidden"));
   });
 };
 
 const renderWeatherData = (weatherData) => {
-  clearNoDataMessage();
   clearError();
   clearWeatherData();
   renderBackgroundImage(weatherData.weatherMain);
