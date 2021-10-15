@@ -67,8 +67,9 @@ const clearNoDataMessage = () => {
 };
 
 const clearError = () => {
-  const errorMessageSpan = document.querySelector(".error-message");
-  errorMessageSpan.textContent = "";
+  const errorMessageText = document.querySelector(".error-message");
+  if (!errorMessageText) return;
+  errorMessageText.remove();
 };
 
 const clearWeatherMainCard = () => {
@@ -101,8 +102,13 @@ const renderLoadingComponent = () => {
 const renderError = (errorMessage) => {
   clearWeatherData();
   renderNoDataMessage();
-  const errorMessageSpan = document.querySelector(".error-message");
-  errorMessageSpan.textContent = errorMessage;
+  clearError();
+  const errorMessageText = DOMFactory("p", {
+    className: "error-message",
+    textContent: errorMessage,
+  });
+  const formContainer = document.querySelector("form");
+  formContainer.append(errorMessageText);
 };
 
 const renderBackgroundImage = (weatherMain) => {

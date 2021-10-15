@@ -75,6 +75,16 @@ button:focus {
   cursor: pointer;
 }
 
+.error-message {
+  background-color: rgb(255, 255, 255, 0.9);
+  border: 2px solid red;
+  text-align: center;
+  width: inherit;
+  border-radius: 8px;
+  margin: 5px;
+  padding: 2px;
+}
+
 .units-changeable.hidden {
   display: none;
 }
