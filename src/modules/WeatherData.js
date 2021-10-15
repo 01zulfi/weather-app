@@ -62,8 +62,8 @@ const handleError = (dataObject) => {
 const getWeatherData = async (cityName) => {
   sendEventForLoading();
   const [metricUnitsPromise, imperialUnitsPromise] = await Promise.all([
-    fetch(getAPILink(cityName, "metric")),
-    fetch(getAPILink(cityName, "imperial")),
+    fetch(getAPILink(cityName, "metric"), { mode: "cors" }),
+    fetch(getAPILink(cityName, "imperial"), { mode: "cors" }),
   ]);
   const dataInMetricUnits = await metricUnitsPromise.json();
   const dataInImperialUnits = await imperialUnitsPromise.json();
