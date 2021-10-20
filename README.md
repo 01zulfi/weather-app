@@ -14,7 +14,7 @@
 
 ## Bundled in
 
-<a href="webpack.js.org">Webpack</a>
+<a href="https://webpack.js.org/">Webpack</a>
 
 ## Libraries
 
