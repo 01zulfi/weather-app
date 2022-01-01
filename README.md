@@ -2,7 +2,7 @@
 
 ## Live Demo
 
-[Click to visit](https://xari4808.github.io/weather-app/)
+[Click to visit](https://01zulfi.github.io/weather-app/)
 
 ## Written in
 
