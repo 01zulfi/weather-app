@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xari4808/weather-app.git"
+    "url": "git+https://github.com/01zulfi/weather-app.git"
   },
   "author": "xari",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/xari4808/weather-app/issues"
+    "url": "https://github.com/01zulfi/weather-app/issues"
   },
-  "homepage": "https://github.com/xari4808/weather-app#readme",
+  "homepage": "https://github.com/01zulfi/weather-app#readme",
   "devDependencies": {
     "css-loader": "^6.4.0",
     "eslint": "^7.32.0",
